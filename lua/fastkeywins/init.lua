@@ -7,52 +7,65 @@ M.setup = function(options)
     Config.setup(options)
 end
 
-if Config.options.keychoice == "arrows" then
-    _G.fkw_keymaps = {
-        split = {
-            {'n', '<A-Up>', '<Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-Down>', '<Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-Left>', '<Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-Right>', '<Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-Up>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-Down>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-Left>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-Right>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
-        },
-        resize = {
-            {'n', '<C-Up>', '<Cmd>lua _G.fkw_resize_window("Up")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-Down>', '<Cmd>lua _G.fkw_resize_window("Down")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-Left>', '<Cmd>lua _G.fkw_resize_window("Left")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-Right>', '<Cmd>lua _G.fkw_resize_window("Right")<CR>', {noremap = true, silent = true}},
-            {'t', '<C-Up>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Up")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<C-Down>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Down")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<Home>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Left")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<End>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Right")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+M.init_keys = function()
+    if Config.options.keychoice == "arrows" then
+        _G.fkw_keymaps = {
+            split = {
+                {'n', '<A-Up>', '<Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-Down>', '<Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-Left>', '<Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-Right>', '<Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-Up>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-Down>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-Left>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-Right>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
+            },
+            resize = {
+                {'n', '<C-Up>', '<Cmd>lua _G.fkw_resize_window("Up")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-Down>', '<Cmd>lua _G.fkw_resize_window("Down")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-Left>', '<Cmd>lua _G.fkw_resize_window("Left")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-Right>', '<Cmd>lua _G.fkw_resize_window("Right")<CR>', {noremap = true, silent = true}},
+                {'t', '<C-Up>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Up")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<C-Down>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Down")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<Home>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Left")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<End>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Right")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+            }
         }
-    }
-elseif Config.options.keychoice == "hjkl" then
-    _G.fkw_keymaps = {
-        split = {
-            {'n', '<A-k>', '<Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-j>', '<Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-h>', '<Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
-            {'n', '<A-l>', '<Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-k>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-j>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-h>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
-            {'t', '<A-l>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
-        },
-        resize = {
-            {'n', '<C-k>', '<Cmd>lua _G.fkw_resize_window("Up")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-j>', '<Cmd>lua _G.fkw_resize_window("Down")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-h>', '<Cmd>lua _G.fkw_resize_window("Left")<CR>', {noremap = true, silent = true}},
-            {'n', '<C-l>', '<Cmd>lua _G.fkw_resize_window("Right")<CR>', {noremap = true, silent = true}},
-            {'t', '<C-k>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Up")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<C-j>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Down")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<C-h>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Left")<CR>:startinsert<CR>', {noremap = true, silent = true}},
-            {'t', '<C-l>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Right")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+    elseif Config.options.keychoice == "hjkl" then
+        _G.fkw_keymaps = {
+            split = {
+                {'n', '<A-k>', '<Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-j>', '<Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-h>', '<Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
+                {'n', '<A-l>', '<Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-k>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("k")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-j>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("j")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-h>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("h")<CR>', {noremap = true, silent = true}},
+                {'t', '<A-l>', '<C-\\><C-n><Cmd>lua _G.fkw_navigate_and_split("l")<CR>', {noremap = true, silent = true}},
+            },
+            resize = {
+                {'n', '<C-k>', '<Cmd>lua _G.fkw_resize_window("Up")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-j>', '<Cmd>lua _G.fkw_resize_window("Down")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-h>', '<Cmd>lua _G.fkw_resize_window("Left")<CR>', {noremap = true, silent = true}},
+                {'n', '<C-l>', '<Cmd>lua _G.fkw_resize_window("Right")<CR>', {noremap = true, silent = true}},
+                {'t', '<C-k>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Up")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<C-j>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Down")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<C-h>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Left")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+                {'t', '<C-l>', '<C-\\><C-n><Cmd>lua _G.fkw_resize_window("Right")<CR>:startinsert<CR>', {noremap = true, silent = true}},
+            }
         }
-    }
+    end
+    for _, keymap in ipairs(_G.fkw_keymaps.split) do
+        vim.api.nvim_set_keymap(unpack(keymap))
+    end
+
+    for _, keymap in ipairs(_G.fkw_keymaps.resize) do
+        vim.api.nvim_set_keymap(unpack(keymap))
+    end
+
+    if Config.options.terminal_keybind then
+        vim.api.nvim_set_keymap("n", Config.options.terminal_keybind, "<Cmd>lua require('fastkeywins').open_terminal_in_current_buffer_dir()<CR>", {silent = true})
+    end
 end
 
 
@@ -122,13 +135,6 @@ _G.fkw_navigate_and_split = function(direction)
   end
 end
 
-for _, keymap in ipairs(_G.fkw_keymaps.split) do
-vim.api.nvim_set_keymap(unpack(keymap))
-end
-
-for _, keymap in ipairs(_G.fkw_keymaps.resize) do
-vim.api.nvim_set_keymap(unpack(keymap))
-end
 
 M.open_terminal_in_current_buffer_dir = function()
     local bufnr = vim.api.nvim_get_current_buf()
@@ -144,7 +150,5 @@ M.open_terminal_in_current_buffer_dir = function()
     vim.cmd('startinsert')
 end
 
-if Config.options.terminal_keybind then
-    vim.api.nvim_set_keymap("n", Config.options.terminal_keybind, "<Cmd>lua _G.open_terminal_in_current_buffer_dir()<CR>", {silent = true})
-end
+
 return M
