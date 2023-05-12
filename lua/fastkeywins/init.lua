@@ -66,6 +66,10 @@ M.init_keys = function()
     if Config.options.terminal_keybind then
         vim.api.nvim_set_keymap("n", Config.options.terminal_keybind, "<Cmd>lua require('fastkeywins').open_terminal_in_current_buffer_dir()<CR>", {silent = true})
     end
+
+    if Config.options.toggle_minimize_keybind then
+        vim.api.nvim_set_keymap("n", Config.options.toggle_minimize_keybind, "<Cmd>lua require('fastkeywins').toggle_minimize_window()<CR>", {silent = true})
+    end
 end
 
 
@@ -133,6 +137,32 @@ _G.fkw_navigate_and_split = function(direction)
       vim.cmd('startinsert')
       end
   end
+end
+
+
+M.toggle_minimize_window = function()
+    if ( _G.fkw_is_window_in_direction('j') or _G.fkw_is_window_in_direction('k') ) then
+        _G.fkw_min_cmd = 'resize'
+        local height = vim.api.nvim_win_get_height(0)
+        if height < 5 then
+            local total_height = vim.api.nvim_get_option('lines')
+            _G.fkw_new_val = total_height / 2
+        else
+            _G.fkw_new_val = 1
+        end
+    elseif ( _G.fkw_is_window_in_direction('h') or _G.fkw_is_window_in_direction('l') ) then
+        _G.fwk_min_cmd = 'vertical resize'
+        local width = vim.api.nvim_win_get_width(0)
+        if width < 5 then
+            local total_width = vim.api.nvim_get_option('columns')
+            _G.fkw_new_val = total_width / 2
+        else
+            _G.fkw_new_val = 1
+        end
+    else
+        return
+    end
+    vim.cmd(_G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
 end
 
 
