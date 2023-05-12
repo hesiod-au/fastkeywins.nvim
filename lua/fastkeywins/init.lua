@@ -162,7 +162,8 @@ M.toggle_minimize_window = function()
     else
         return
     end
-    print('executing command: ' .. _G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
+    print('executing command:')
+    print(_G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
     vim.cmd(_G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
 end
 
