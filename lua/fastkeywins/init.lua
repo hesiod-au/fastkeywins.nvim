@@ -151,7 +151,7 @@ M.toggle_minimize_window = function()
             _G.fkw_new_val = 1
         end
     elseif ( _G.fkw_is_window_in_direction('h') or _G.fkw_is_window_in_direction('l') ) then
-        _G.fwk_min_cmd = 'vertical resize'
+        _G.fkw_min_cmd = 'vertical resize'
         local width = vim.api.nvim_win_get_width(0)
         if width < 5 then
             local total_width = vim.api.nvim_get_option('columns')
