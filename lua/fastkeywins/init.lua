@@ -139,33 +139,67 @@ _G.fkw_navigate_and_split = function(direction)
   end
 end
 
-
-M.toggle_minimize_window = function()
-    if ( _G.fkw_is_window_in_direction('j') or _G.fkw_is_window_in_direction('k') ) then
-        _G.fkw_min_cmd = 'resize'
-        local height = vim.api.nvim_win_get_height(0)
-        if height < 5 then
-            local total_height = vim.api.nvim_get_option('lines')
-            _G.fkw_new_val = total_height / 2
-        else
-            _G.fkw_new_val = 1
-        end
+local return_window_axes = function()
+    if ( _G.fkw_is_window_in_direction('j') or _G.fkw_is_window_in_direction('k') ) and
+        ( _G.fkw_is_window_in_direction('h') or _G.fkw_is_window_in_direction('l') ) then
+        return "both"
+    elseif ( _G.fkw_is_window_in_direction('j') or _G.fkw_is_window_in_direction('k') ) then
+        return "vertical"
     elseif ( _G.fkw_is_window_in_direction('h') or _G.fkw_is_window_in_direction('l') ) then
-        _G.fkw_min_cmd = 'vertical resize'
-        local width = vim.api.nvim_win_get_width(0)
-        print("width: " .. width)
-        if width < 5 then
-            local total_width = vim.api.nvim_get_option('columns')
-            _G.fkw_new_val = total_width / 2
-        else
-            _G.fkw_new_val = 1
-        end
+        return "horizontal"
     else
+        return nil
+    end
+end
+
+local resize_window = function(axis)
+    if axis == "vertical" then
+        local height = vim.api.nvim_win_get_height(0)
+        local total_height = vim.api.nvim_get_option('lines')
+        if height < 5 then
+            _G.fkw_new_height = total_height / 4
+        elseif height < (total_height / 3) then
+            _G.fkw_new_height = total_height / 2
+        else
+            _G.fkw_new_height = 4
+        end
+        vim.cmd('resize ' .. _G.fkw_new_height)
+        return
+    else
+        local width = vim.api.nvim_win_get_width(0)
+        local total_width = vim.api.nvim_get_option('columns')
+        if width < 21 then
+            _G.fkw_new_width = total_width < 4
+        elseif width < (total_width / 3) then
+            _G.fkw_new_width = total_width < 2
+        else
+            _G.fkw_new_width = 20
+        end
+        vim.cmd('vertical resize ' .. _G.fkw_new_width)
         return
     end
-    print('Executing command:')
-    print(_G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
-    vim.cmd(_G.fkw_min_cmd .. ' ' .. _G.fkw_new_val)
+end
+
+
+M.toggle_minimize_window = function()
+    local axes = return_window_axes()
+    if axes == "both" then
+        if _G.fkw_is_window_in_direction('j') then
+            vim.cmd('wincmd j')
+            if _G.fkw_return_window_axes() == "both" then
+                vim.cmd('wincmd k')
+                resize_window("vertical")
+                return
+            else
+                vim.cmd('wincmd k')
+                resize_window("horizontal")
+                return
+            end
+        end
+    else
+        resize_window(axes)
+        return
+    end
 end
 
 
