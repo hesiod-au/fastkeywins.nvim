@@ -5,7 +5,8 @@ function M.defaults()
         resize_amount = 1,
         after_split = "", -- "telescope" will run telescope.builtin.find_files()
         terminal_keybind = nil, -- key combo string
-        toggle_minimize_keybind = nil -- key combo string
+        toggle_minimize_keybind = nil, -- key combo string
+        toggle_minimize_keybind_force_hz = nil -- key combo string
     }
     return defaults
 end

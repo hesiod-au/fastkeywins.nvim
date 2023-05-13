@@ -70,6 +70,10 @@ M.init_keys = function()
     if Config.options.toggle_minimize_keybind then
         vim.api.nvim_set_keymap("n", Config.options.toggle_minimize_keybind, "<Cmd>lua require('fastkeywins').toggle_minimize_window()<CR>", {silent = true})
     end
+
+    if Config.options.toggle_minimize_keybind_force_hz then
+        vim.api.nvim_set_keymap("n", Config.options.toggle_minimize_keybind_force_hz, "<Cmd>lua require('fastkeywins').toggle_minimize_window(true)<CR>", {silent = true})
+    end
 end
 
 
