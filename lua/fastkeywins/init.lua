@@ -185,15 +185,15 @@ M.toggle_minimize_window = function(force_hz)
     local axes = return_window_axes()
     local cur_win = vim.api.nvim_get_current_win()
     if axes == "both" then
+        if force_hz then
+            resize_window("horizontal")
+            return
+        end
         if _G.fkw_is_window_in_direction('j') then
             vim.cmd('wincmd j')
             if return_window_axes() == "both" then
                 vim.api.nvim_set_current_win(cur_win)
-                if force_hz then
-                    resize_window("horizontal")
-                else
-                    resize_window("vertical")
-                end
+                resize_window("vertical")
                 return
             else
                 vim.api.nvim_set_current_win(cur_win)
