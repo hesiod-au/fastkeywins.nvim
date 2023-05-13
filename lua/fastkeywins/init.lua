@@ -80,9 +80,8 @@ function _G.fkw_is_window_in_direction(direction)
 
   -- Restore the previous window focus
   if cur_win ~= changed_win then
-    vim.cmd('wincmd ' .. ({h = 'l', j = 'k', k = 'j', l = 'h'})[direction])
+      vim.api.nvim_set_current_win(cur_win)
   end
-
   return cur_win ~= changed_win
 end
 
@@ -117,16 +116,16 @@ _G.fkw_navigate_and_split = function(direction)
   if cur_win == vim.api.nvim_get_current_win() then
     if direction == 'h' then
       vim.cmd('vsplit')
-      vim.cmd('wincmd h')
+      vim.api.nvim_set_current_win(cur_win)
     elseif direction == 'l' then
       vim.cmd('vsplit')
-      vim.cmd('wincmd l')
+      vim.api.nvim_set_current_win(cur_win)
     elseif direction == 'j' then
       vim.cmd('split')
-      vim.cmd('wincmd j')
+      vim.api.nvim_set_current_win(cur_win)
     elseif direction == 'k' then
       vim.cmd('split')
-      vim.cmd('wincmd k')
+      vim.api.nvim_set_current_win(cur_win)
     end
     if Config.options.after_split == "telescope" then
         local builtin = require('telescope.builtin')
