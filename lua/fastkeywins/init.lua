@@ -169,9 +169,9 @@ local resize_window = function(axis)
         local width = vim.api.nvim_win_get_width(0)
         local total_width = vim.api.nvim_get_option('columns')
         if width < 21 then
-            _G.fkw_new_width = total_width < 4
+            _G.fkw_new_width = total_width / 4
         elseif width < (total_width / 3) then
-            _G.fkw_new_width = total_width < 2
+            _G.fkw_new_width = total_width / 2
         else
             _G.fkw_new_width = 20
         end
