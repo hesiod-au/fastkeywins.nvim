@@ -176,17 +176,23 @@ local resize_window = function(axis)
 end
 
 
-M.toggle_minimize_window = function()
+M.toggle_minimize_window = function(force_hz)
+    force_hz = force_hz or false
     local axes = return_window_axes()
+    local cur_win = vim.api.nvim_get_current_win()
     if axes == "both" then
         if _G.fkw_is_window_in_direction('j') then
             vim.cmd('wincmd j')
             if return_window_axes() == "both" then
-                vim.cmd('wincmd k')
-                resize_window("vertical")
+                vim.api.nvim_set_current_win(cur_win)
+                if force_hz then
+                    resize_window("horizontal")
+                else
+                    resize_window("vertical")
+                end
                 return
             else
-                vim.cmd('wincmd k')
+                vim.api.nvim_set_current_win(cur_win)
                 resize_window("horizontal")
                 return
             end
@@ -194,11 +200,11 @@ M.toggle_minimize_window = function()
         if _G.fkw_is_window_in_direction('k') then
             vim.cmd('wincmd k')
             if return_window_axes() == "both" then
-                vim.cmd('wincmd j')
+                vim.api.nvim_set_current_win(cur_win)
                 resize_window("vertical")
                 return
             else
-                vim.cmd('wincmd j')
+                vim.api.nvim_set_current_win(cur_win)
                 resize_window("horizontal")
                 return
             end
