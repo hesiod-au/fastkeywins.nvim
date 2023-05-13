@@ -132,10 +132,6 @@ _G.fkw_navigate_and_split = function(direction)
         local builtin = require('telescope.builtin')
         builtin.find_files()
     end
-  else
-      if direction == 'j' then
-      vim.cmd('startinsert')
-      end
   end
 end
 
