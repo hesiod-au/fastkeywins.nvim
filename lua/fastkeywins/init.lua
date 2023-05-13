@@ -191,6 +191,18 @@ M.toggle_minimize_window = function()
                 return
             end
         end
+        if _G.fkw_is_window_in_direction('k') then
+            vim.cmd('wincmd k')
+            if return_window_axes() == "both" then
+                vim.cmd('wincmd j')
+                resize_window("vertical")
+                return
+            else
+                vim.cmd('wincmd j')
+                resize_window("horizontal")
+                return
+            end
+        end
     else
         resize_window(axes)
         return
