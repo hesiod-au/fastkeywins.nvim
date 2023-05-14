@@ -63,8 +63,12 @@ M.init_keys = function()
         vim.api.nvim_set_keymap(unpack(keymap))
     end
 
-    if Config.options.terminal_keybind then
-        vim.api.nvim_set_keymap("n", Config.options.terminal_keybind, "<Cmd>lua require('fastkeywins').open_terminal_in_current_buffer_dir()<CR>", {silent = true})
+    if Config.options.terminal_local_keybind then
+        vim.api.nvim_set_keymap("n", Config.options.terminal_local_keybind, "<Cmd>lua require('fastkeywins').open_terminal_in_current_buffer_dir(" .. Config.options.terminal_start_height .. ")<CR>", {silent = true})
+    end
+
+    if Config.options.terminal_standard_keybind then
+        vim.api.nvim_set_keymap("n", Config.options.terminal_standard_keybind, "<Cmd>lua require('fastkeywins').open_terminal_standard(".. Config.options.terminal_start_height .. ")<CR>", {silent = true})
     end
 
     if Config.options.toggle_minimize_keybind then
@@ -155,10 +159,12 @@ local resize_window = function(axis)
     if axis == "vertical" then
         local height = vim.api.nvim_win_get_height(0)
         local total_height = vim.api.nvim_get_option('lines')
-        if height < 5 then
+        if height < 10 then
             _G.fkw_new_height = total_height / 4
         elseif height < (total_height / 3) then
             _G.fkw_new_height = total_height / 2
+        elseif height < (total_height - 5) then
+            _G.fkw_new_height = (total_height - 5)
         else
             _G.fkw_new_height = 4
         end
@@ -171,6 +177,8 @@ local resize_window = function(axis)
             _G.fkw_new_width = total_width / 4
         elseif width < (total_width / 3) then
             _G.fkw_new_width = total_width / 2
+        elseif width < (total_width - 40) then
+            _G.fkw_new_width = (total_width - 20)
         else
             _G.fkw_new_width = 20
         end
@@ -220,17 +228,25 @@ M.toggle_minimize_window = function(force_hz)
 end
 
 
-M.open_terminal_in_current_buffer_dir = function()
+M.open_terminal_in_current_buffer_dir = function(size)
     local bufnr = vim.api.nvim_get_current_buf()
     local bufname = vim.api.nvim_buf_get_name(bufnr)
     local bufdir = vim.fn.fnamemodify(bufname, ':h')
     vim.cmd('split')
     vim.cmd('wincmd j')
-    vim.cmd('resize 10')
+    vim.cmd('resize ' .. size)
     vim.cmd('term')
     if bufdir ~= "" then
         vim.fn.chansend(vim.b.terminal_job_id, "cd " .. bufdir .. "\n")
     end
+    vim.cmd('startinsert')
+end
+
+M.open_terminal_standard = function(size)
+    vim.cmd('split')
+    vim.cmd('wincmd j')
+    vim.cmd('resize ' .. size)
+    vim.cmd('term')
     vim.cmd('startinsert')
 end
 
