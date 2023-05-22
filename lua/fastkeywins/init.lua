@@ -116,7 +116,8 @@ end
 
 _G.fkw_navigate_and_split = function(direction)
   local cur_win = vim.api.nvim_get_current_win()
-
+  vim.api.nvim_win_set_option(0, 'number', false)
+  vim.api.nvim_win_set_option(0, 'relativenumber', false)
   -- Try navigating to the desired window
   vim.cmd('wincmd ' .. direction)
 
@@ -140,6 +141,8 @@ _G.fkw_navigate_and_split = function(direction)
         builtin.find_files()
     end
   end
+  vim.api.nvim_win_set_option(0, 'number', true)
+  vim.api.nvim_win_set_option(0, 'relativenumber', true)
 end
 
 local return_window_axes = function()
