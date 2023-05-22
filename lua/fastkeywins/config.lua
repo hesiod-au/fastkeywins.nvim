@@ -8,7 +8,10 @@ function M.defaults()
         terminal_standard_keybind = nil, -- key combo string
         terminal_start_height = 10,
         toggle_minimize_keybind = nil, -- key combo string
-        toggle_minimize_keybind_force_hz = nil -- key combo string
+        toggle_minimize_keybind_force_hz = nil, -- key combo string
+        active_win_number = true, -- active win settings are applied on selection
+        active_win_relativenumber = true, -- you will want to set these originally as well
+        active_win_signcolumn = 'auto'
     }
     return defaults
 end

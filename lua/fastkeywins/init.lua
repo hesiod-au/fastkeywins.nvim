@@ -118,6 +118,7 @@ _G.fkw_navigate_and_split = function(direction)
   local cur_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_option(0, 'number', false)
   vim.api.nvim_win_set_option(0, 'relativenumber', false)
+  vim.api.nvim_win_set_option(0, 'signcolumn', false)
   -- Try navigating to the desired window
   vim.cmd('wincmd ' .. direction)
 
@@ -136,15 +137,17 @@ _G.fkw_navigate_and_split = function(direction)
       vim.cmd('split')
       vim.api.nvim_set_current_win(cur_win)
     end
-    vim.api.nvim_win_set_option(0, 'number', true)
-    vim.api.nvim_win_set_option(0, 'relativenumber', true)
+    vim.api.nvim_win_set_option(0, 'number', Config.options.active_win_number)
+    vim.api.nvim_win_set_option(0, 'relativenumber', Config.options.active_win_relativenumber)
+    vim.api.nvim_win_set_option(0, 'signcolumn', Config.options.active_win_signcolumn)
     if Config.options.after_split == "telescope" then
         local builtin = require('telescope.builtin')
         builtin.find_files()
     end
   else
-    vim.api.nvim_win_set_option(0, 'number', true)
-    vim.api.nvim_win_set_option(0, 'relativenumber', true)
+    vim.api.nvim_win_set_option(0, 'number', Config.options.active_win_number)
+    vim.api.nvim_win_set_option(0, 'relativenumber', Config.options.active_win_relativenumber)
+    vim.api.nvim_win_set_option(0, 'signcolumn', Config.options.active_win_signcolumn)
   end
 end
 
