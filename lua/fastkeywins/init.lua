@@ -136,13 +136,16 @@ _G.fkw_navigate_and_split = function(direction)
       vim.cmd('split')
       vim.api.nvim_set_current_win(cur_win)
     end
+    vim.api.nvim_win_set_option(0, 'number', true)
+    vim.api.nvim_win_set_option(0, 'relativenumber', true)
     if Config.options.after_split == "telescope" then
         local builtin = require('telescope.builtin')
         builtin.find_files()
     end
+  else
+    vim.api.nvim_win_set_option(0, 'number', true)
+    vim.api.nvim_win_set_option(0, 'relativenumber', true)
   end
-  vim.api.nvim_win_set_option(0, 'number', true)
-  vim.api.nvim_win_set_option(0, 'relativenumber', true)
 end
 
 local return_window_axes = function()
