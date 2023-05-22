@@ -118,7 +118,7 @@ _G.fkw_navigate_and_split = function(direction)
   local cur_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_option(0, 'number', false)
   vim.api.nvim_win_set_option(0, 'relativenumber', false)
-  vim.api.nvim_win_set_option(0, 'signcolumn', false)
+  vim.api.nvim_win_set_option(0, 'signcolumn', 'no')
   -- Try navigating to the desired window
   vim.cmd('wincmd ' .. direction)
 
